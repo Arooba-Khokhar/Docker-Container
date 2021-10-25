@@ -1,0 +1,26 @@
+version: '3.6'
+services:
+  mariadb_init:
+    container_name: mariadb_init
+    build: ./files
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      HOST: mariadb
+      PORT: 3306
+      USERNAME: root
+      PASSWORD: root
+    depends_on:
+      - mariadb
+    links:
+      - mariadb
+    restart: 'on-failure'
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports: 
+      - 3306:3306
+    restart: 'always'
+
